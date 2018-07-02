@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import {Map, InfoWindow, GoogleApiWrapper} from 'google-maps-react';
+import { InfoWindow} from 'google-maps-react';
+import Map from "./main.js"
+import {wrapper as GoogleApiWrapper} from './GoogleApiComponent';
 import { riyadhLocations } from './locations.js';
 import './App.css';
 import fetchJsonp from 'fetch-jsonp';
@@ -27,6 +29,7 @@ class App extends Component {
  }
  // to display InfoWindow and animation when marker clicked
  onMarkerClick = (props, marker, e) =>{
+
     this.setState({
       selectedPlace: marker.name,
       activeMarker: marker,
@@ -36,7 +39,10 @@ class App extends Component {
 
     })
     this.infoToInfoWindow(marker.name);
-    marker.setAnimation(this.props.google.maps.Animation.DROP);
+    marker.setAnimation(this.props.google.maps.Animation.BOUNCE);
+    setTimeout(function(){ marker.setAnimation(null); }, 750);
+
+
 };
 // to fetch information from wikipedia
 
@@ -48,7 +54,10 @@ class App extends Component {
          link: responseJson[3][0]
        })
      }).catch(error =>
-     console.error(error)
+       this.setState({
+         info: "Error try again please",
+         link: "https://en.wikipedia.org/"
+       })
      )
 
      }
@@ -89,6 +98,14 @@ class App extends Component {
    }
 
   }
+  componentDidMount() {
+    var loadGoogleMapsApi = require('load-google-maps-api-2');
+
+loadGoogleMapsApi().then(function (Map) {
+}).catch(function (err) {
+  console.error(err);
+});
+  }
 
   render() {
     return (
@@ -104,6 +121,7 @@ class App extends Component {
             <div className="sidemain-input" >
               <label className="sidemain-header">Search</label>
               <input
+                aria-labelledby="search landmark"
                 role="search"
                 type="text"
                 placeholder="Landmark name"
@@ -115,7 +133,7 @@ class App extends Component {
               <li
                 data-id={index}
                 key={index}
-                role="tablist"
+                role="button"
                 tabIndex="0"
                 onClick={this.onPopulateInfoWindow.bind(this)}
 
@@ -128,7 +146,7 @@ class App extends Component {
 
 
       <div id="map-container" role="application" tabIndex="-1">
-        <Map google={this.props.google}
+        <Map google={this.props.google} className="map"
         zoom={12}
         initialCenter={{
             lat: 24.7135517,

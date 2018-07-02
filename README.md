@@ -12,5 +12,10 @@ to filter and search.
 
 ## Installation
 
-Access project folder using Terminal than run `npm install` after it install
+Access project folder using Terminal than run `npm install` after that
 run `npm start`.
+
+## Run in production mode
+
+Access project folder using Terminal than run `npm run build` after that  
+run `npm run deploy`.

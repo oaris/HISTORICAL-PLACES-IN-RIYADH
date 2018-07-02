@@ -27,8 +27,17 @@ class App extends Component {
     }
 
  }
+ gm_authFailure(){
+   window.alert("Error in google maps api try again please")
+ }
+
  // to display InfoWindow and animation when marker clicked
  onMarkerClick = (props, marker, e) =>{
+if(this.state.showingInfoWindow){
+  this.setState({
+    showingInfoWindow: false
+  })
+}
 
     this.setState({
       selectedPlace: marker.name,
@@ -99,6 +108,8 @@ class App extends Component {
 
   }
   componentDidMount() {
+    window.gm_authFailure = this.gm_authFailure;
+
     var loadGoogleMapsApi = require('load-google-maps-api-2');
 
 loadGoogleMapsApi().then(function (Map) {
@@ -109,16 +120,16 @@ loadGoogleMapsApi().then(function (Map) {
 
   render() {
     return (
-    <div id="main">
+    <div id="main"  role="main">
       <nav className="title">
-        <span tabIndex='0'>historical places in riyadh</span>
+        <span tabIndex='0' role="Heading" >historical places in riyadh</span>
         </nav>
 
 
 
 
-        <div className="sidemain-main"  >
-            <div className="sidemain-input" >
+        <aside className="sidemain-main" role="Region"  >
+            <section className="sidemain-input" >
               <label className="sidemain-header">Search</label>
               <input
                 aria-labelledby="search landmark"
@@ -127,7 +138,7 @@ loadGoogleMapsApi().then(function (Map) {
                 placeholder="Landmark name"
                onChange={(event) => this.updateQuery(event.target.value)}
               />
-            </div>
+            </section>
           <ul className="sidemain-list">
             {this.state.locationResult.map((location,index) => (
               <li
@@ -142,7 +153,7 @@ loadGoogleMapsApi().then(function (Map) {
               </li>
             ))}
           </ul>
-  			</div>
+  			</aside>
 
 
       <div id="map-container" role="application" tabIndex="-1">
@@ -174,7 +185,7 @@ loadGoogleMapsApi().then(function (Map) {
         <InfoWindow
           position={this.state.position}
           visible={this.state.showingInfoWindow}>
-            <div>
+            <div role="Dialog">
             <h2 className="infowindow" tabIndex="0">{this.state.selectedPlace} </h2>
             <h5 className="infowindow" tabIndex="0">{this.state.info}</h5>
             <a href={this.state.link}>Click Here For More Info</a>

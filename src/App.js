@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { InfoWindow} from 'google-maps-react';
 import Map from "./main.js"
-import {wrapper as GoogleApiWrapper} from './GoogleApiComponent';
+import {GoogleApiWrapper} from './main.js';
 import { riyadhLocations } from './locations.js';
 import './App.css';
 import fetchJsonp from 'fetch-jsonp';

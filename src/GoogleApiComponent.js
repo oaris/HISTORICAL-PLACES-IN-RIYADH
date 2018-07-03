@@ -32,7 +32,7 @@ const defaultCreateCache = options => {
   });
 };
 
-const DefaultLoadingContainer = props => <div>Loading...</div>;
+const DefaultLoadingContainer = props => <div>Error try again please</div>;
 
 export const wrapper = input => WrappedComponent => {
   class Wrapper extends React.Component {

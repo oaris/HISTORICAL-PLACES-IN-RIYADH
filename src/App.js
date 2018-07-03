@@ -109,13 +109,6 @@ if(this.state.showingInfoWindow){
   }
   componentDidMount() {
     window.gm_authFailure = this.gm_authFailure;
-
-    var loadGoogleMapsApi = require('load-google-maps-api-2');
-
-loadGoogleMapsApi().then(function (Map) {
-}).catch(function (err) {
-  console.error(err);
-});
   }
 
   render() {
@@ -130,8 +123,9 @@ loadGoogleMapsApi().then(function (Map) {
 
         <aside className="sidemain-main" role="Region"  >
             <section className="sidemain-input" >
-              <label className="sidemain-header">Search</label>
+              <label htmlFor="inputsearch" className="sidemain-header">Search</label>
               <input
+                id="inputsearch"
                 aria-labelledby="search landmark"
                 role="search"
                 type="text"
